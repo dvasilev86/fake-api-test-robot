@@ -27,7 +27,7 @@ jobs:
           robot -d reports/ online_bookstore
 
       - name: Upload Robot Framework reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: robot-reports
           path: reports/
