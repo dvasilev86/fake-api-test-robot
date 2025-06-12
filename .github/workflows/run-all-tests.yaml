@@ -31,4 +31,20 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: robot-reports
-          path: reports/
+          path: /reports
+          retention-days: 7
+
+  generate_report:
+      if: always()
+      needs: [robot-tests]
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
+      - name: Download reports
+        uses: actions/download-artifact@v1
+        with:
+          name: robot-reports
+      - name: Send report to commit
+        uses: joonvena/robotframework-reporter-action@v2.5
+        with:
+          gh_access_token: ${{ secrets.GITHUB_TOKEN }}
