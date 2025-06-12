@@ -11,7 +11,7 @@ Default Tags       Books  Update Book
 *** Test Cases ***
 Update Book With Valid Id  1  ${EMPTY}  ${EMPTY}  200
 Update Book With Non-existing Id  999999  ${EMPTY}  ${EMPTY}  404     Skip: the fake API treats all integer IDs as valid, hence this test fails
-Update Book With Invalid Id  -1  ${EMPTY}  ${EMPTY}  404    Skip: the fake API treats all integer IDs as valid, hence this test fails
+Update Book With Negative Id  -1  ${EMPTY}  ${EMPTY}  404    Skip: the fake API treats all integer IDs as valid, hence this test fails
 Update Book With Non-integer Id  invalid  ${EMPTY}  ${EMPTY}  400       
 Update Book With Too Large Id  ${LARGE_INT_VALUE}  ${EMPTY}  ${EMPTY}  400     
 Update Book Without Providing Id  ${EMPTY}  ${EMPTY}  ${EMPTY}  405

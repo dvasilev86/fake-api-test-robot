@@ -10,7 +10,7 @@ Default Tags       Books  Fetch Book by Id
 *** Test Cases ***
 Get Book By Valid Id  1  200
 Get Book By Non-existing Id  999999  404
-Get Book By Invalid Id  -1  404
+Get Book By Negative Id  -1  404
 Get Book By Non-integer Id  invalid  400
 Get Book By Very Large Id   ${LARGE_INT_VALUE}  400
 Get Book Without Providing Id  ${EMPTY}  200  # falls back to "fetch all books", so result is 200
