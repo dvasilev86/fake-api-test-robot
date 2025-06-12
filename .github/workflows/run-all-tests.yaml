@@ -1,0 +1,33 @@
+name: Run Robot Framework Tests
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs daily at 00:00 UTC
+  workflow_dispatch:     # Manual trigger
+
+jobs:
+  robot-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Robot Framework tests
+        run: |
+          robot -d reports/ online_bookstore
+
+      - name: Upload Robot Framework reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: robot-reports
+          path: reports/
