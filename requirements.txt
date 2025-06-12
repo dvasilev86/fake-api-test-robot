@@ -1,0 +1,9 @@
+# Core Robot Framework
+robotframework==6.1.1
+# HTTP library for API testing
+robotframework-requests==0.9.7
+# Optional: JSON schema validation
+robotframework-jsonlibrary==0.4.1
+
+# Base HTTP client library
+requests==2.31.0

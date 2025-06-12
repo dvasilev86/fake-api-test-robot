@@ -1,0 +1,8 @@
+# default path of JetBrains' tools like PyCharm
+.idea
+
+# reporting related
+reports/
+log.html
+output.xml
+report.html
