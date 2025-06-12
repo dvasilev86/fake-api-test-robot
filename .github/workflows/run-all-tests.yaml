@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: robot-reports
-          path: /reports
+          path: /reports/
           retention-days: 7
 
   generate_report:
@@ -43,7 +43,7 @@ jobs:
       - name: Download reports
         uses: actions/download-artifact@v4
         with:
-          name: robot-reports
+          name: /reports/
       - name: Send report to commit
         uses: joonvena/robotframework-reporter-action@v2.5
         with:
