@@ -33,7 +33,7 @@ jobs:
 
       - name: Run Robot Framework tests
         run: |
-          pabot --testlevelsplit --processes 8 --outputdir ./reports --variable env:{{ github.event.inputs.environment }} ./online_bookstore
+          pabot --testlevelsplit --processes 8 --outputdir ./reports --variable env:${{ github.event.inputs.environment }} ./online_bookstore
         continue-on-error: true
 
       - name: Upload Robot Framework reports
