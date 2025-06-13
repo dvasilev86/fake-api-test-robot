@@ -32,7 +32,7 @@ jobs:
         with:
           name: robot-reports
           path: |
-            - reports/report.html
+            - report.html
             - output.xml
             - log.html
           retention-days: 7
