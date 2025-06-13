@@ -24,18 +24,18 @@ jobs:
 
       - name: Run Robot Framework tests
         run: |
-          pabot --testlevelsplit --processes 8 ./online_bookstore
+          pabot --testlevelsplit --processes 8  --outputdir ./reports ./online_bookstore
         continue-on-error: true
 
       - name: Get current working directory
         id: get-pwd
         run: echo "cwd=$(pwd)" >> $GITHUB_OUTPUT
 
-      - name: copy reports to reports/ folder
-        run: |
-          cp ${{ steps.get-pwd.outputs.cwd }}/report.html ${{ steps.get-pwd.outputs.cwd }}/reports/report.html  
-          cp ${{ steps.get-pwd.outputs.cwd }}/report.html ${{ steps.get-pwd.outputs.cwd }}/reports/output.xml  
-          cp ${{ steps.get-pwd.outputs.cwd }}/report.html ${{ steps.get-pwd.outputs.cwd }}/reports/log.html  
+#      - name: copy reports to reports/ folder
+#        run: |
+#          cp ${{ steps.get-pwd.outputs.cwd }}/report.html ${{ steps.get-pwd.outputs.cwd }}/reports/report.html
+#          cp ${{ steps.get-pwd.outputs.cwd }}/report.html ${{ steps.get-pwd.outputs.cwd }}/reports/output.xml
+#          cp ${{ steps.get-pwd.outputs.cwd }}/report.html ${{ steps.get-pwd.outputs.cwd }}/reports/log.html
 
       - name: Upload Robot Framework reports
         uses: actions/upload-artifact@v4
