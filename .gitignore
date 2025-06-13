@@ -6,3 +6,8 @@ reports/
 log.html
 output.xml
 report.html
+reports.html
+
+# pabot-related
+.pabotsuitenames
+pabot_results/
