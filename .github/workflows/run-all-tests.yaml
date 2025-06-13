@@ -27,14 +27,18 @@ jobs:
           pabot --testlevelsplit -r report online_bookstore
         continue-on-error: true
 
+      - name: Get current working directory
+        id: get-pwd
+        run: echo "cwd=$(pwd)" >> $GITHUB_OUTPUT
+
       - name: Upload Robot Framework reports
         uses: actions/upload-artifact@v4
         with:
           name: robot-reports
           path: |
-            - ./report.html
-            - ./output.xml
-            - ./log.html
+            - ${{ steps.get-pwd.outputs.cwd }}/report.html
+            - ${{ steps.get-pwd.outputs.cwd }}/output.xml
+            - ${{ steps.get-pwd.outputs.cwd }}/log.html
           retention-days: 7
 
       - name: Download reports
