@@ -24,14 +24,17 @@ jobs:
 
       - name: Run Robot Framework tests
         run: |
-          pabot --testlevelsplit online_bookstore
+          pabot --testlevelsplit -r reports/report online_bookstore
         continue-on-error: true
 
       - name: Upload Robot Framework reports
         uses: actions/upload-artifact@v4
         with:
           name: robot-reports
-          path: ./
+          path: |
+            - /reports/report.html
+            - /output.xml
+            - /log.html
           retention-days: 7
 
       - name: Download reports
