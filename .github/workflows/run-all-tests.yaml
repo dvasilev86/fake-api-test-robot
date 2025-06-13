@@ -4,6 +4,15 @@ on:
   schedule:
     - cron: '0 0 * * *'  # Runs daily at 00:00 UTC
   workflow_dispatch:     # Manual trigger
+    inputs:
+      environment:
+        type: choice
+        description: 'environment to run the tests against'
+        options:
+          - dev
+          - prod
+        required: true
+        default: dev
 
 jobs:
   robot-tests:
@@ -24,7 +33,7 @@ jobs:
 
       - name: Run Robot Framework tests
         run: |
-          pabot --testlevelsplit --processes 8  --outputdir ./reports ./online_bookstore
+          pabot --testlevelsplit --processes 8  --outputdir  ./reports --variable env:{{ github.event.inputs.environment }} ./online_bookstore
         continue-on-error: true
 
       - name: Upload Robot Framework reports
