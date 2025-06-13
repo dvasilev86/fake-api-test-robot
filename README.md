@@ -50,8 +50,8 @@ Tests can (and in this project - are) grouped by tags. This can be done in multi
 
 # Executing tests
 
-## Locally
-You can run tests locally either by `robot` or `pabot` commands. Both options are highly configurable, so I'll only highlight some examples, notable differences and interesting CLI options.
+## Execution type
+You can run tests either by `robot` or `pabot` commands. Both options are highly configurable, so I'll only highlight some examples, notable differences and interesting CLI options.
 
 #### Common params
 Regardless of which command you choose, you need to specify `env` variable, with defined options being `dev` and `prod`. this will configure the URL of the SUT. example CLI input:
