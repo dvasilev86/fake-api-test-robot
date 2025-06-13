@@ -35,10 +35,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: robot-reports
-          path: |
-            - ${{ steps.get-pwd.outputs.cwd }}/report.html
-            - ${{ steps.get-pwd.outputs.cwd }}/output.xml
-            - ${{ steps.get-pwd.outputs.cwd }}/log.html
+          path:
+            ${{ steps.get-pwd.outputs.cwd }}/report.html
           retention-days: 7
 
       - name: Download reports
