@@ -9,6 +9,7 @@ This project is an implementation of an interview task. The scope of the task is
 
 # Installation
 
+After you checkout the repository, you'd need to take a few steps before you can execute it.
 ## Windows 
 1. install python as per site instructions https://www.python.org/downloads/ - i chose the latest stable which ATM is 3.13
 2. create virtual environment in the project root: `python -m venv .env` - i chose `.env` as directory name, but you can choose differently. make sure your choice is ignored by `.gitignore` so as to not commit it by accident  
@@ -20,7 +21,7 @@ This project is an implementation of an interview task. The scope of the task is
 You should be good to move on to the next section.
 
 ## Linux/MacOS (unverified)
-1. install or update your python distribution by your prefered package manager
+1. install or update your python distribution by your preferred package manager
 2. create virtual environment in the project root: python -m venv .env - i chose .env as directory name, but you can choose differently. make sure your choice is ignored by .gitignore so as to not commit it by accident
 3. activate the venv with `$ source ./<venv path>/bin/activate`
 4. in the activated prompt, install the packages from `requirements.txt` to the venv with: `pip install -r requirements.txt`
@@ -29,13 +30,13 @@ You should be good to move on to the next section.
 
 # Project Structure
 
-The project utilizes [Robot Framework](https://robotframework.org/). Robot may have a bit unusual syntax for most people that are not familiar with it, as it relies on whitespace as delimiter between calls, arguments, variables and pretty much everything else - one space is treated as part of the name/literal, two+ spaces are considered a delimiter. My own preference for editing Robot code is [PyCharm](https://www.jetbrains.com/pycharm/) with [Hyper RobotFramework Support plugin](https://plugins.jetbrains.com/plugin/16382-hyper-robotframework-support). 
+The project utilizes [Robot Framework](https://robotframework.org/). Robot may have a bit unusual syntax for most people that are not familiar with it, as it relies on whitespace as delimiter between calls, arguments, variables and pretty much everything - one space is treated as part of the name/literal, two+ spaces are considered a delimiter. My own preference for editing Robot code is [PyCharm](https://www.jetbrains.com/pycharm/) with [Hyper RobotFramework Support plugin](https://plugins.jetbrains.com/plugin/16382-hyper-robotframework-support). 
 
 ## Notable files
 
 - **requirements.txt** - contains the [pip](https://pypi.org/) packages required for this project to run  
-- **.gitignore** - i have put all irrelevant or artifact files into it, but if you choose different IDE (e.g. VSCode) or some something else is different on your platform - the file may require editing before you decide to extend it with version control
-- **report.html** - the produced report, either by `robot` or `pabot` commands, the former is the original command to invoke tests, and the latter is the parallel executor
+- **.gitignore** - I have put all irrelevant or artifact files into it, but if you choose different IDE (e.g. VSCode) or something else is different on your platform - the file may require editing before you decide to extend it with version control (so that you do not commit irrelevant files)
+- **report.html** - the produced report, either by `robot` or `pabot` commands, **the former is the original Robot Framework command to invoke tests, and the latter is the parallel executor**
 - **online_bookstore/api_paths.resource** - contains URL definitions of the system under test - **SUT** (in this case, our [fake Rest API](https://fakerestapi.azurewebsites.net/index.html)) which are used by the tests to make http calls. Also note that it includes a python (.py) file that resolves configurable variables related to the URLs.
 - **.github/workflows/run-all-tests.yaml** - the Github Actions workflow file
 
@@ -83,5 +84,14 @@ Let's add a few example commands of running tests and describe them what they do
 - this will use **pabot** to fire up 8 testing threads and run in parallel all tests, split on test level (not suite level, where suite means .robot file), found under `online_bookstore` directory, against `dev` environment, and will produce a report in `results` directory 
 
 #### Running tests on CI 
-There's a workflow file `.github/workflow/run-all-tests.yaml` which can be used to run the tests in Github Actions. It is also configurable to choose which branch and what environment to use. A complete report is attached to the action's summary, kept 7 days (hardcoded in the yaml file), and also the results' summary is embedded in the github action's summary.
+There's a workflow file `.github/workflow/run-all-tests.yaml` which can be used to run the tests in Github Actions. It is also scheduled to run daily. Running it manually, it is configurable to choose branch and environment to run with. A complete report is attached to the action's summary, kept 7 days (hardcoded in the yaml file), and also the results' summary is embedded in the github action's summary. You can observe sample reports created by manual or automated runs here:
+- https://github.com/dvasilev86/fake-api-test-robot/actions/runs/15642358906 - run from master against dev env
+- https://github.com/dvasilev86/fake-api-test-robot/actions/runs/15642361738 - run from master against prod env (which does not exist, so all executed tests fail)
 
+# Reports
+
+Whether you look at reports produced by robot (sequentially ran tests), pabot (tests ran in parallel), from CI, or from local execution - you'd see similar things. Note that currently, parallel execution does not seem to be very beneficial, time-wise, as the test base is relatively small. Larger number of test would make a difference. 
+
+Another notable thing are the skipped tests. Currently, on this codebase, a bunch of tests are skipped due to limitations of the SUT or simply to avoid unnecessary or dubious failures. Skip reasons are included in the full report, so feel free to examine them. 
+
+Finally, note that CI report contained in the "Summary" page of the job is providing insight about failures but full logs need to be examined in order to get a better understanding of what fails (and especially, what is skipped, and why). My recommendation is to run the tests locally and examine the produced test report (or download a full report from one of the completed CI jobs) to get a good understanding at the results of tests included in this test project. 
