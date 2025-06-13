@@ -24,7 +24,7 @@ jobs:
 
       - name: Run Robot Framework tests
         run: |
-          pabot --testlevelsplit -r report online_bookstore
+          pabot --testlevelsplit --processes 8 ./online_bookstore
         continue-on-error: true
 
       - name: Get current working directory
