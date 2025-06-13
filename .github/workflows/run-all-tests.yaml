@@ -24,7 +24,7 @@ jobs:
 
       - name: Run Robot Framework tests
         run: |
-          pabot --testlevelsplit -r reports/report online_bookstore
+          pabot --testlevelsplit -r report online_bookstore
         continue-on-error: true
 
       - name: Upload Robot Framework reports
@@ -32,7 +32,7 @@ jobs:
         with:
           name: robot-reports
           path: |
-            - ./reports/report.html
+            - ./report.html
             - ./output.xml
             - ./log.html
           retention-days: 7
