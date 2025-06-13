@@ -31,14 +31,20 @@ jobs:
         id: get-pwd
         run: echo "cwd=$(pwd)" >> $GITHUB_OUTPUT
 
+      - name: copy reports to reports/ folder
+        run: |
+          cp ${{ steps.get-pwd.outputs.cwd }}/report.html ${{ steps.get-pwd.outputs.cwd }}/reports/report.html  
+          cp ${{ steps.get-pwd.outputs.cwd }}/report.html ${{ steps.get-pwd.outputs.cwd }}/reports/output.xml  
+          cp ${{ steps.get-pwd.outputs.cwd }}/report.html ${{ steps.get-pwd.outputs.cwd }}/reports/log.html  
+
       - name: Upload Robot Framework reports
         uses: actions/upload-artifact@v4
         with:
           name: robot-reports
           path: |
-            ${{ steps.get-pwd.outputs.cwd }}/report.html
-            ${{ steps.get-pwd.outputs.cwd }}/output.xml
-            ${{ steps.get-pwd.outputs.cwd }}/log.html
+            ${{ steps.get-pwd.outputs.cwd }}/reports/report.html
+            ${{ steps.get-pwd.outputs.cwd }}/reports/output.xml
+            ${{ steps.get-pwd.outputs.cwd }}/reports/log.html
           retention-days: 7
 
       - name: Download reports
